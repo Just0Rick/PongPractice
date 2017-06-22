@@ -2,17 +2,21 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Pong.Global;
+using Pong.Manejadores;
+
 namespace Pong
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class PongGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Pantallas manejadorDeEscenas;
 
-        public Game1()
+        public PongGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -27,7 +31,8 @@ namespace Pong
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Coordenadas.InicializarDatos(this);
+            manejadorDeEscenas = new Pantallas(this);
             base.Initialize();
         }
 
@@ -59,9 +64,10 @@ namespace Pong
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Input.Boton.Back == ButtonState.Pressed)
                 Exit();
 
+            manejadorDeEscenas.Update(gameTime);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -73,9 +79,8 @@ namespace Pong
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            manejadorDeEscenas.Draw(gameTime);
 
             base.Draw(gameTime);
         }
