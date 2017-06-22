@@ -13,8 +13,8 @@ namespace Pong.Global
             limitesDePantalla.X = contexto.GraphicsDevice.DisplayMode.Width;
             limitesDePantalla.Y = contexto.GraphicsDevice.DisplayMode.Height;
 
-            limitesDeVentana.X = contexto.Window.ClientBounds.X;
-            limitesDeVentana.Y = contexto.Window.ClientBounds.Y;
+            limitesDeVentana.X = contexto.Window.ClientBounds.Width;
+            limitesDeVentana.Y = contexto.Window.ClientBounds.Height;
         }
 
         public static Vector2 LimitesDeVentana

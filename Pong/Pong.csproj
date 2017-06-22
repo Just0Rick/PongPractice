@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Escenas\EscenaBase.cs" />
+    <Compile Include="Escenas\MenuPrincipal.cs" />
     <Compile Include="Manejadores\Pantallas.cs" />
     <Compile Include="PongGame.cs" />
     <Compile Include="Global\Coordenadas.cs" />

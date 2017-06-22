@@ -12,11 +12,20 @@ namespace Pong.Manejadores
     {
         protected PongGame contexto;
         protected EscenaBase escenaActual = null;
-        protected Dictionary<string, EscenaBase> EscenasCargadas;
+        protected Dictionary<string, EscenaBase> escenasCargadas;
 
         public Pantallas(PongGame contexto)
         {
             this.contexto = contexto;
+            escenasCargadas = new Dictionary<string, EscenaBase>();
+            InicializarComponentes();
+        }
+
+        protected void InicializarComponentes()
+        {
+            EscenaBase escenaPorDefecto = new MenuPrincipal(this, new SpriteBatch(contexto.GraphicsDevice));
+            escenasCargadas.Add(escenaPorDefecto.Nombre, escenaPorDefecto);
+            escenaActual = escenaPorDefecto;
         }
 
         public TRecurso CargarRecurso<TRecurso>(string ruta)
@@ -26,7 +35,7 @@ namespace Pong.Manejadores
 
         public bool ComprobarSiLaEscenaExiste(string escena)
         {
-            return EscenasCargadas.ContainsKey(escena);
+            return escenasCargadas.ContainsKey(escena);
         }
 
         public void CambiarANuevaEscena<TEscena>(bool guardarEscenaActual)
@@ -35,24 +44,24 @@ namespace Pong.Manejadores
             string padre = escenaActual.Nombre;
             if (!guardarEscenaActual)
             {
-                EscenasCargadas.Remove(escenaActual.Nombre);
+                escenasCargadas.Remove(escenaActual.Nombre);
                 padre = null;
             }
 
             EscenaBase nuevaEscena = (TEscena)Activator.CreateInstance(typeof(TEscena), this, new SpriteBatch(contexto.GraphicsDevice), padre);
-            EscenasCargadas.Add(nuevaEscena.Nombre, nuevaEscena);
+            escenasCargadas.Add(nuevaEscena.Nombre, nuevaEscena);
             escenaActual = nuevaEscena;
         }
 
         public void CambiarAEscenaCargada(string escena, bool guardarEscenaActual)
         {
-            if (!EscenasCargadas.ContainsKey(escena))
+            if (!escenasCargadas.ContainsKey(escena))
                 return;
 
             if(!guardarEscenaActual)
-                EscenasCargadas.Remove(escenaActual.Nombre);
+                escenasCargadas.Remove(escenaActual.Nombre);
 
-            escenaActual = EscenasCargadas[escena];
+            escenaActual = escenasCargadas[escena];
         }
 
         public void Update(GameTime gameTime)
