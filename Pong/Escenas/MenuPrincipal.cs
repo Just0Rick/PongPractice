@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Pong.Manejadores;
 using Pong.Global;
-using System;
+using cirint = Pong.Utils.EnteroCircular;
 
 namespace Pong.Escenas
 {
@@ -11,11 +11,13 @@ namespace Pong.Escenas
     {
         private SpriteFont opcionesTipoDeLetra;
         private Vector2 opcionesPosicionA, opcionesPosicionB, opcionesPosicionC;
+        private Color colorOpcionA, colorOpcionB, colorOpcionC;
         private SpriteFont tituloTipoDeLetra;
         private Vector2 tituloPosicion;
         private string[] cadenas = new string[] { "Iniciar","Opciones","Salir" };
-
-
+        private Color selectedColor = Color.Magenta;
+        private cirint index;
+        float inputAnterior;
         public override string Nombre { get; protected set; }
         
 
@@ -27,6 +29,8 @@ namespace Pong.Escenas
 
         protected override void InicializarComponentes()
         {
+            index = 0;
+            colorOpcionA = colorOpcionB = colorOpcionC = Color.White;
             Vector2 centroDePantalla = new Vector2(Coordenadas.LimitesDeVentana.X / 2f,
                 Coordenadas.LimitesDeVentana.Y / 2f);
             opcionesTipoDeLetra = manejador.CargarRecurso<SpriteFont>("Fonts/fontMenu");
@@ -48,6 +52,53 @@ namespace Pong.Escenas
 
         public override void Update(GameTime gameTime)
         {
+            if(Input.Analoga.Izquierda.Y > 0.5 && inputAnterior < 0.5 && inputAnterior >= 0)
+            {
+                inputAnterior = Input.Analoga.Izquierda.Y;
+                index++;
+            }
+            else if(Input.Analoga.Izquierda.Y < -0.5 && inputAnterior > -0.05 && inputAnterior <= 0)
+            {
+                inputAnterior = Input.Analoga.Izquierda.Y;
+                index--;
+            }
+            else
+            {
+                inputAnterior = Input.Analoga.Izquierda.Y;
+            }
+
+            switch(index)
+            {
+                case 0:
+                    colorOpcionA = selectedColor;
+                    colorOpcionB = Color.White;
+                    colorOpcionC = Color.White;
+                    break;
+                case 1:
+                    colorOpcionA = Color.White;
+                    colorOpcionB = selectedColor;
+                    colorOpcionC = Color.White;
+                    break;
+                case 2:
+                    colorOpcionA = Color.White;
+                    colorOpcionB = Color.White;
+                    colorOpcionC = selectedColor;
+                    break;
+            }
+
+            if(Input.Boton.A == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+            {
+                switch(index)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        manejador.ExitGame();
+                        break;
+                }
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -55,9 +106,9 @@ namespace Pong.Escenas
             spriteBatch.Begin();
 
             spriteBatch.DrawString(tituloTipoDeLetra, "PONG", tituloPosicion, Color.White);
-            spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[0], opcionesPosicionA, Color.White);
-            spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[1], opcionesPosicionB, Color.White);
-            spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[2], opcionesPosicionC, Color.White);
+            spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[0], opcionesPosicionA, colorOpcionA);
+            spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[1], opcionesPosicionB, colorOpcionB);
+            spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[2], opcionesPosicionC, colorOpcionC);
 
             spriteBatch.End();
         }

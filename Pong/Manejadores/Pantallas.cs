@@ -75,5 +75,10 @@ namespace Pong.Manejadores
 
             escenaActual?.Draw(gameTime);
         }
+        
+        public void ExitGame()
+        {
+            contexto.Exit();
+        }
     }
 }

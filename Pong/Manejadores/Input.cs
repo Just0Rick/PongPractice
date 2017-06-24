@@ -185,7 +185,7 @@ namespace Pong.Manejadores
                     retorno.X -= presionDefault;
             }
 
-            retorno.Normalize();
+            //retorno.Normalize();
             return retorno;
         }
 

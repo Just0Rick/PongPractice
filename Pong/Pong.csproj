@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Utils\EnteroCircular.cs" />
     <Compile Include="Escenas\EscenaBase.cs" />
     <Compile Include="Escenas\MenuPrincipal.cs" />
     <Compile Include="Manejadores\Pantallas.cs" />
