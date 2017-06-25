@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +25,21 @@ namespace Pong.Manejadores
 
         protected void InicializarComponentes()
         {
+            if(File.Exists("Config.sav"))
+            {
+                using (FileStream fichero = new FileStream("Config.sav", FileMode.Open))
+                {
+                    BinaryFormatter formato = new BinaryFormatter();
+                    try
+                    {
+                        Global.Config.SetValues((Global.Config)formato.Deserialize(fichero));
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("Error cargando las opciones: " + ex.Message);
+                    }
+                }
+            }
             EscenaBase escenaPorDefecto = new MenuPrincipal(this, new SpriteBatch(contexto.GraphicsDevice));
             escenasCargadas.Add(escenaPorDefecto.Nombre, escenaPorDefecto);
             escenaActual = escenaPorDefecto;
@@ -78,6 +95,18 @@ namespace Pong.Manejadores
         
         public void ExitGame()
         {
+            using (FileStream fichero = new FileStream("Config.sav", FileMode.Create))
+            {
+                BinaryFormatter formato = new BinaryFormatter();
+                try
+                {
+                    formato.Serialize(fichero, Global.Config.ObtenerObjeto());
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Error serializando los datos: " + ex.Message);
+                }
+            }
             contexto.Exit();
         }
     }
