@@ -93,6 +93,7 @@ namespace Pong.Escenas
                     case 0:
                         break;
                     case 1:
+                        manejador.CambiarANuevaEscena<MenuPrincipalOpciones>(true);
                         break;
                     case 2:
                         manejador.ExitGame();

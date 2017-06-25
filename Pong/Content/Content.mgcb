@@ -142,3 +142,10 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/fontTitulo.spritefont
 
+#begin Fonts/fontNota.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/fontNota.spritefont
+

@@ -41,6 +41,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Escenas\MenuPrincipalOpciones.cs" />
+    <Compile Include="Global\Config.cs" />
     <Compile Include="Utils\EnteroCircular.cs" />
     <Compile Include="Escenas\EscenaBase.cs" />
     <Compile Include="Escenas\MenuPrincipal.cs" />
