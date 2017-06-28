@@ -36,6 +36,9 @@ namespace Pong.Escenas
         int minCantidadParaGanar = 5;
         int maxCantidadParaGanar = 999;
 
+        private Texture2D fondoTextura;
+        private Point fondoSize;
+
         public override string Nombre { get; protected set; }
         public MenuPrincipalOpciones(Pantallas manejador, SpriteBatch spriteBatch, string padre)
             : base(manejador, spriteBatch, padre)
@@ -53,6 +56,9 @@ namespace Pong.Escenas
 
         protected override void InicializarComponentes()
         {
+            fondoTextura = manejador.CargarRecurso<Texture2D>("Texturas/pongMenuBackground");
+            fondoSize = new Point((int)Coordenadas.LimitesDeVentana.X, (int)Coordenadas.LimitesDeVentana.Y);
+
             opcionesColorA = opcionesColorB = opcionesColorC = Color.White;
 
             opcionesTipoDeLetra = manejador.CargarRecurso<SpriteFont>("Fonts/fontMenu");
@@ -183,6 +189,8 @@ namespace Pong.Escenas
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
+
+            spriteBatch.Draw(fondoTextura, new Rectangle(0, 0, fondoSize.X, fondoSize.Y), Color.White);
 
             spriteBatch.DrawString(opcionesTipoDeLetra, opcionesCadenas[0], opcionesPosicionA, opcionesColorA);
             spriteBatch.DrawString(opcionesTipoDeLetra, opcionesCadenas[1], opcionesPosicionB, opcionesColorB);

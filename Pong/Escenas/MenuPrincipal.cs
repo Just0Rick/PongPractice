@@ -17,7 +17,11 @@ namespace Pong.Escenas
         private string[] cadenas = new string[] { "Iniciar","Opciones","Salir" };
         private Color selectedColor = Color.Magenta;
         private cirint index;
-        float inputAnterior;
+        private float inputAnterior;
+
+        private Texture2D fondoTextura;
+        private Point fondoSize;
+
         public override string Nombre { get; protected set; }
         
 
@@ -30,6 +34,9 @@ namespace Pong.Escenas
 
         protected override void InicializarComponentes()
         {
+            fondoTextura = manejador.CargarRecurso<Texture2D>("Texturas/pongMenuBackground");
+            fondoSize = new Point((int)Coordenadas.LimitesDeVentana.X, (int)Coordenadas.LimitesDeVentana.Y);
+
             index = 0;
             colorOpcionA = colorOpcionB = colorOpcionC = Color.White;
             Vector2 centroDePantalla = new Vector2(Coordenadas.LimitesDeVentana.X / 2f,
@@ -108,6 +115,7 @@ namespace Pong.Escenas
         {
             spriteBatch.Begin();
 
+            spriteBatch.Draw(fondoTextura, new Rectangle(0, 0, fondoSize.X, fondoSize.Y), Color.White);
             spriteBatch.DrawString(tituloTipoDeLetra, "PONG", tituloPosicion, Color.White);
             spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[0], opcionesPosicionA, colorOpcionA);
             spriteBatch.DrawString(opcionesTipoDeLetra, cadenas[1], opcionesPosicionB, colorOpcionB);
