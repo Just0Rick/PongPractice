@@ -21,7 +21,8 @@ namespace Pong.Escenas
         public override string Nombre { get; protected set; }
         
 
-        public MenuPrincipal(Pantallas manejador, SpriteBatch spriteBatch) : base(manejador, spriteBatch, null)
+        public MenuPrincipal(Pantallas manejador, SpriteBatch spriteBatch, string padre) 
+            : base(manejador, spriteBatch, null)
         {
             Nombre = "MenuPrincipal";
             InicializarComponentes();
@@ -91,6 +92,7 @@ namespace Pong.Escenas
                 switch(index)
                 {
                     case 0:
+                        manejador.CambiarANuevaEscena<Juego>(false);
                         break;
                     case 1:
                         manejador.CambiarANuevaEscena<MenuPrincipalOpciones>(true);

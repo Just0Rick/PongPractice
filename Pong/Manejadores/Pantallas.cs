@@ -40,7 +40,7 @@ namespace Pong.Manejadores
                     }
                 }
             }
-            EscenaBase escenaPorDefecto = new MenuPrincipal(this, new SpriteBatch(contexto.GraphicsDevice));
+            EscenaBase escenaPorDefecto = new MenuPrincipal(this, new SpriteBatch(contexto.GraphicsDevice), null);
             escenasCargadas.Add(escenaPorDefecto.Nombre, escenaPorDefecto);
             escenaActual = escenaPorDefecto;
         }
