@@ -169,7 +169,8 @@ namespace Pong.Manejadores
             Vector2 retorno = Vector2.Zero;
             if (GamePad.GetState(PlayerIndex.One).IsConnected)
             {
-                retorno += estadoControl;
+                retorno.X += estadoControl.X;
+                retorno.Y -= estadoControl.Y;
             }
             else
             {
@@ -185,7 +186,15 @@ namespace Pong.Manejadores
                     retorno.X -= presionDefault;
             }
 
-            //retorno.Normalize();
+            if (retorno.X > 0)
+                retorno.X = 1;
+            else if (retorno.X < 0)
+                retorno.X = -1;
+
+            if (retorno.Y > 0)
+                retorno.Y = 1;
+            else if (retorno.Y < 0)
+                retorno.Y = -1;
             return retorno;
         }
 
