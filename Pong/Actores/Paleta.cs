@@ -13,42 +13,14 @@ namespace Pong.Actores
         PlayerTwo,
     }
 
-    public class Paleta
+    public class Paleta : ActorBase
     {
-
-        private Texture2D textura;
-        private Vector2 posicionInicial;
-        private Vector2 posicionActual;
         private const float rapidez = 5;
-        private Rectangle size;
 
         private PlayerPaleta player;
-        
-        public Vector2 PosicionActual
-        {
-            get
-            {
-                return posicionActual;
-            }
-
-            set
-            {
-                Vector2 pantalla = Coordenadas.LimitesDeVentana;
-                if (value.X > pantalla.X || value.X < 0 || value.Y > pantalla.Y || value.Y < 0)
-                    return;
-                posicionActual = value;
-            }
-        }
-
-        public Rectangle CajaDeLimites
-        {
-            get
-            {
-                return new Rectangle((int)posicionActual.X, (int)posicionActual.Y, textura.Width, textura.Height);
-            }
-        }
 
         public Paleta(Texture2D textura, PlayerPaleta player)
+            : base(textura)
         {
             Vector2 centro = Coordenadas.CentroDeVentana;
             if (player == PlayerPaleta.PlayerOne)
@@ -62,7 +34,6 @@ namespace Pong.Actores
                     centro.Y - (textura.Height / 2f));
             }
             posicionActual = posicionInicial;
-            this.textura = textura;
             size = new Rectangle((int)posicionInicial.X, (int)posicionInicial.Y, textura.Width, textura.Height);
             this.player = player;
         }
@@ -84,7 +55,7 @@ namespace Pong.Actores
             this.size = new Rectangle((int)posicionInicial.X, (int)posicionInicial.Y, size.X, size.Y);
         }
 
-        public void Update()
+        public override void Update(GameTime gameTime)
         {
             float movimientoP1 = posicionActual.Y + Input.Analoga.Izquierda.Y * rapidez;
             float movimientoP2 = posicionActual.Y + Input.Analoga.Derecha.Y * rapidez;
@@ -100,7 +71,7 @@ namespace Pong.Actores
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             size.Y = (int)posicionActual.Y;
             spriteBatch.Draw(textura, size, Color.White);

@@ -41,7 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Actores\ActorBase.cs" />
     <Compile Include="Actores\Paleta.cs" />
+    <Compile Include="Actores\Pelota.cs" />
     <Compile Include="Escenas\Juego.cs" />
     <Compile Include="Escenas\MenuPrincipalOpciones.cs" />
     <Compile Include="Global\Config.cs" />
