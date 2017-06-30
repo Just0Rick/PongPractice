@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Pong
 {
@@ -21,9 +22,11 @@ namespace Pong
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine("Presione una tecla para continuar . . .");
-                Console.ReadKey(true);
+                using (TextWriter fichero = new StreamWriter(new FileStream("Error log.txt", FileMode.Create)))
+                {
+                    fichero.WriteLine("ERROR: " + Environment.NewLine + ex.Message);
+                }
+
             }
         }
     }
