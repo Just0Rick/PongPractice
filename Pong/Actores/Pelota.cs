@@ -25,7 +25,7 @@ namespace Pong.Actores
         public Pelota(Texture2D textura, Point size)
             : base(textura, size)
         {
-            rand = new Random(DateTime.Now.Second);
+            rand = new Random(DateTime.Now.Second + DateTime.Now.Millisecond);
             posicionActual = posicionInicial = new Vector2(Coordenadas.CentroDeVentana.X, Coordenadas.CentroDeVentana.Y);
             this.size = new Rectangle((int)posicionInicial.X, (int)posicionInicial.Y,
                 size.X, size.Y);

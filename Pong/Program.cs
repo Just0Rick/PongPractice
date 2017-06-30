@@ -14,8 +14,17 @@ namespace Pong
         [STAThread]
         static void Main()
         {
-            using (var game = new PongGame())
-                game.Run();
+            try
+            {
+                using (var game = new PongGame())
+                    game.Run();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Presione una tecla para continuar . . .");
+                Console.ReadKey(true);
+            }
         }
     }
 #endif
