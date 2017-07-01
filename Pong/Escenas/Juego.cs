@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Timers;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +12,10 @@ namespace Pong.Escenas
 {
     public class Juego : EscenaBase
     {
+        private int incrementoDeVelocidad = 1;
+        private const int tiempoLimiteSegundos = 15;
+        private Timer temporizador;
+
         private int puntajeP1, puntajeP2;
         private Vector2 posicionPuntaje1, posicionPuntaje2;
         private SpriteFont tipoDeLetraPuntaje;
@@ -36,7 +40,18 @@ namespace Pong.Escenas
         {
             Nombre = "Juego";
             puntajeP1 = puntajeP2 = 0;
+            temporizador = new Timer(tiempoLimiteSegundos * 1000);
+            temporizador.Elapsed += AlPasarElIntervalo;
+            temporizador.Enabled = true;
             InicializarComponentes();
+        }
+
+        private void AlPasarElIntervalo(object sender, ElapsedEventArgs e)
+        {
+            incrementoDeVelocidad++;
+            playerOne.Rapidez = playerTwo.Rapidez = Paleta.RapidezBase * (MultiplicadorDeRapidez + incrementoDeVelocidad);
+            pelota.Rapidez = Pelota.RapidezBase * (MultiplicadorDeRapidez + incrementoDeVelocidad);
+            
         }
 
         protected override void InicializarComponentes()
@@ -45,6 +60,9 @@ namespace Pong.Escenas
                 PlayerPaleta.PlayerOne, new Point(20, 100));
             playerTwo = new Paleta(manejador.CargarRecurso<Texture2D>("Texturas/" + coloresPaletaP2[ColoresIndexP2]),
                 PlayerPaleta.PlayerTwo, new Point(20, 100));
+
+            playerOne.Rapidez = Paleta.RapidezBase * MultiplicadorDeRapidez;
+            playerTwo.Rapidez = Paleta.RapidezBase * MultiplicadorDeRapidez;
 
             tipoDeLetraPuntaje = manejador.CargarRecurso<SpriteFont>("Fonts/fontPuntaje");
             puntajeSize = tipoDeLetraPuntaje.MeasureString("998");
@@ -59,6 +77,7 @@ namespace Pong.Escenas
                 CentroDeVentana.Y - (medidasGano.Y / 2));
 
             pelota = new Pelota(manejador.CargarRecurso<Texture2D>("Texturas/pongPelota"), new Point(30, 30));
+            pelota.Rapidez = Pelota.RapidezBase * MultiplicadorDeRapidez;
 
             fondoTextura = manejador.CargarRecurso<Texture2D>("Texturas/pongBackground2");
             fondoSize = new Point((int)LimitesDeVentana.X, (int)LimitesDeVentana.Y);
@@ -68,11 +87,13 @@ namespace Pong.Escenas
         {
             if (Input.Boton.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
             {
+
                 manejador.CambiarANuevaEscena<MenuPrincipal>(false);
             }
 
             if (alguienGano)
                 return;
+
             playerOne.Update(gameTime);
             playerTwo.Update(gameTime);
             pelota.Update(gameTime);
@@ -87,6 +108,8 @@ namespace Pong.Escenas
             {
                 pelota.NotificarColision(TipoDeColision.Gol);
                 puntajeP1++;
+                incrementoDeVelocidad = 0;
+                AlPasarElIntervalo(null, null);
                 if(puntajeP1 >= CantidadParaGanar)
                 {
                     alguienGano = true;
@@ -98,6 +121,8 @@ namespace Pong.Escenas
             {
                 pelota.NotificarColision(TipoDeColision.Gol);
                 puntajeP2++;
+                incrementoDeVelocidad = 0;
+                AlPasarElIntervalo(null, null);
                 if(puntajeP2 >= CantidadParaGanar)
                 {
                     alguienGano = true;

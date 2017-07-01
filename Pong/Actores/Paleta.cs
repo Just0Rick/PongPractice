@@ -15,7 +15,8 @@ namespace Pong.Actores
 
     public class Paleta : ActorBase
     {
-        private const float rapidez = 5;
+        public const float RapidezBase = 4;
+        public float Rapidez { get; set; } = 4;
 
         private PlayerPaleta player;
 
@@ -57,8 +58,8 @@ namespace Pong.Actores
 
         public override void Update(GameTime gameTime)
         {
-            float movimientoP1 = posicionActual.Y + Input.Analoga.Izquierda.Y * rapidez;
-            float movimientoP2 = posicionActual.Y + Input.Analoga.Derecha.Y * rapidez;
+            float movimientoP1 = posicionActual.Y + Input.Analoga.Izquierda.Y * Rapidez;
+            float movimientoP2 = posicionActual.Y + Input.Analoga.Derecha.Y * Rapidez;
             if (player == PlayerPaleta.PlayerOne 
                 && (movimientoP1 < Coordenadas.LimitesDeVentana.Y - size.Height && movimientoP1 > 0))
             {

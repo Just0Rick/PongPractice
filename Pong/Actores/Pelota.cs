@@ -19,7 +19,9 @@ namespace Pong.Actores
     {
         private Random rand;
         private TipoDeColision ultimaNotificacion;
-        private const float rapidez = 7;
+
+        public const float RapidezBase = 5;
+        public float Rapidez { get; set; } = 5;
         private Vector2 velocidad;
 
         public Pelota(Texture2D textura, Point size)
@@ -35,6 +37,7 @@ namespace Pong.Actores
 
         public override void Update(GameTime gameTime)
         {
+            ActualizarVelocidad();
             posicionActual += velocidad;
             size.X = (int)posicionActual.X;
             size.Y = (int)posicionActual.Y;
@@ -97,9 +100,20 @@ namespace Pong.Actores
         private void DecidirDireccion()
         {
             int resultX = rand.Next(0, 2);
-            float resultY = rand.Next(0, 101) / 100f;
+            float resultY = rand.Next(-100, 101) / 100f;
             velocidad = new Vector2(resultX > 0 ? 1 : -1, resultY);
-            velocidad *= rapidez;
+            Rapidez = RapidezBase;
+            velocidad *= Rapidez;
+        }
+
+        private void ActualizarVelocidad()
+        {
+            if (velocidad.X > 0)
+                velocidad.X = 1;
+            else
+                velocidad.X = -1;
+
+            velocidad.X *= Rapidez;
         }
     }
 }
