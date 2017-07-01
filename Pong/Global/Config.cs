@@ -12,24 +12,28 @@ namespace Pong.Global
         public int InstanceColoresIndexP2 { get; private set; }
         public static int CantidadParaGanar { get; set; }
         public int InstanceCantidadParaGanar { get; private set; }
+        public static int MultiplicadorDeRapidez { get; set; }
+        public int InstanceMultiplicadorDeRapidez { get; private set; }
 
         static Config()
         {
             ColoresIndexP1 = 0;
             ColoresIndexP2 = 0;
             CantidadParaGanar = 10;
+            MultiplicadorDeRapidez = 1;
         }
 
-        public Config(int co1, int co2, int ca)
+        public Config(int co1, int co2, int ca, int ra)
         {
             InstanceColoresIndexP1 = co1;
             InstanceColoresIndexP2 = co2;
             InstanceCantidadParaGanar = ca;
+            InstanceMultiplicadorDeRapidez = ra;
         }
 
         public static Config ObtenerObjeto()
         {
-            return new Config(ColoresIndexP1, ColoresIndexP2, CantidadParaGanar);
+            return new Config(ColoresIndexP1, ColoresIndexP2, CantidadParaGanar, MultiplicadorDeRapidez);
         }
 
         public static void SetValues(Config valores)
