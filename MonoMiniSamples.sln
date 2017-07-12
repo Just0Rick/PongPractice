@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong", "Pong\Pong.csproj", "{9837A842-9D64-470E-B1B1-150B80359438}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AATest", "AATest\AATest.csproj", "{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{9837A842-9D64-470E-B1B1-150B80359438}.Debug|x86.Build.0 = Debug|x86
 		{9837A842-9D64-470E-B1B1-150B80359438}.Release|x86.ActiveCfg = Release|x86
 		{9837A842-9D64-470E-B1B1-150B80359438}.Release|x86.Build.0 = Release|x86
+		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Debug|x86.ActiveCfg = Debug|x86
+		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Debug|x86.Build.0 = Debug|x86
+		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Release|x86.ActiveCfg = Release|x86
+		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
