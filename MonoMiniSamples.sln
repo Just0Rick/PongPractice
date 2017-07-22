@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong", "Pong\Pong.csproj", "{9837A842-9D64-470E-B1B1-150B80359438}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AATest", "AATest\AATest.csproj", "{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResTest", "ResTest\ResTest.csproj", "{BCDA30AB-83E9-4F15-A87B-ADEB545279EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GravityTest", "GravityTest\GravityTest.csproj", "{EBA27469-407E-472C-86D0-0EC814262647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Debug|x86.Build.0 = Debug|x86
 		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Release|x86.ActiveCfg = Release|x86
 		{7ADEEBAB-C036-446B-8A71-5E95E49BB4C2}.Release|x86.Build.0 = Release|x86
+		{BCDA30AB-83E9-4F15-A87B-ADEB545279EF}.Debug|x86.ActiveCfg = Debug|x86
+		{BCDA30AB-83E9-4F15-A87B-ADEB545279EF}.Debug|x86.Build.0 = Debug|x86
+		{BCDA30AB-83E9-4F15-A87B-ADEB545279EF}.Release|x86.ActiveCfg = Release|x86
+		{BCDA30AB-83E9-4F15-A87B-ADEB545279EF}.Release|x86.Build.0 = Release|x86
+		{EBA27469-407E-472C-86D0-0EC814262647}.Debug|x86.ActiveCfg = Debug|x86
+		{EBA27469-407E-472C-86D0-0EC814262647}.Debug|x86.Build.0 = Debug|x86
+		{EBA27469-407E-472C-86D0-0EC814262647}.Release|x86.ActiveCfg = Release|x86
+		{EBA27469-407E-472C-86D0-0EC814262647}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
