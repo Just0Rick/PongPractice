@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace GravityTest
 {
     /// <summary>
@@ -11,6 +12,13 @@ namespace GravityTest
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D textura;
+        Vector2 posicion;
+        Vector2 velocidad = Vector2.Zero;
+        const float rapidez = 10;
+        readonly Vector2 gravedad = new Vector2(0, -9.8f);
+        Vector2 LimitesDePantalla;
+        bool estaSaltando;
 
         public Game1()
         {
@@ -27,8 +35,8 @@ namespace GravityTest
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -41,6 +49,12 @@ namespace GravityTest
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            textura = Content.Load<Texture2D>("playerBullet");
+            LimitesDePantalla = new Vector2(
+                graphics.GraphicsDevice.Viewport.Width,
+                graphics.GraphicsDevice.Viewport.Height
+                );
+            posicion = new Vector2(0, LimitesDePantalla.Y - 20);
         }
 
         /// <summary>
@@ -59,10 +73,57 @@ namespace GravityTest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            KeyboardState teclado = Keyboard.GetState();
+            float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || teclado.IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
+            if(velocidad.X > 0)
+                velocidad.X -= 0.05f;
+            if (velocidad.X < 0)
+                velocidad.X += 0.05f;
+            
+
+            if (teclado.IsKeyDown(Keys.Left))
+                velocidad.X -= rapidez * time;
+            if (teclado.IsKeyDown(Keys.Right))
+                velocidad.X += rapidez * time;
+            if (teclado.IsKeyDown(Keys.Up) && velocidad.Y > -11 && !estaSaltando)
+            {
+                velocidad.Y -= 10;
+                estaSaltando = true;
+            }
+
+            velocidad.Y -= gravedad.Y * time;
+
+            posicion += velocidad;
+
+            if (posicion.X >= LimitesDePantalla.X - 20)
+            {
+                posicion.X = LimitesDePantalla.X - 20;
+                velocidad.X *= -1;
+            }
+
+            if (posicion.Y > LimitesDePantalla.Y - 19)
+            {
+                posicion.Y = LimitesDePantalla.Y - 20;
+                velocidad.Y = 0;
+                estaSaltando = false;
+            }
+
+            if (posicion.X < 0)
+            {
+                posicion.X = 0;
+                velocidad.X *= -1;
+            }
+            if (posicion.Y < 0)
+            {
+                posicion.Y = 0;
+                velocidad.Y = 0;
+            }
+
+            
 
             base.Update(gameTime);
         }
@@ -76,6 +137,17 @@ namespace GravityTest
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
+
+            spriteBatch.Draw(
+                textura, 
+                new Rectangle(
+                    (int)posicion.X, (int)posicion.Y, 20, 20
+                ),
+                Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
